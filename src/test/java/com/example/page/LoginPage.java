@@ -1,12 +1,14 @@
 package com.example.page;
 
 import com.example.model.User;
+import com.example.page.Basic.AbstractPage;
+import com.example.page.Basic.MainPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class LoginPage extends AbstractPage{
+public class LoginPage extends AbstractPage {
 
   private final String PAGE_URL = "https://mail.ukr.net/";
 

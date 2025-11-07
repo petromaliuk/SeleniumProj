@@ -1,12 +1,16 @@
-package com.example.page;
+package com.example.page.Basic;
 
+import com.example.page.DraftsPage;
+import com.example.page.LoginPage;
+import com.example.page.NewEmailPage;
+import com.example.page.ReceivedPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class MainPage extends AbstractPage{
+public class MainPage extends AbstractPage {
 
   private static final String LOGOUT_BUTTON_XPATH = "//button[text()='Вийти з акаунта']";
 
@@ -28,6 +32,9 @@ public class MainPage extends AbstractPage{
   @FindBy(xpath = "//a[@title='Непрочитані']")
   private WebElement unreadButton;
 
+  @FindBy(xpath = "//a[@title='Видалені']")
+  private WebElement removedButton;
+
   public MainPage(WebDriver driver) {
     super(driver);
     PageFactory.initElements(this.driver, this);
@@ -39,33 +46,39 @@ public class MainPage extends AbstractPage{
   }
 
   public boolean isLoginSuccessful(){
-    return isPresent(credentialBlock);
+    return shortW.isPresent(credentialBlock);
   }
 
   public LoginPage logout(){
-    waitUntilVisible(credentialBlock).click();
-    waitUntilVisible(By.xpath(LOGOUT_BUTTON_XPATH)).click();
+    shortW.waitUntilVisible(credentialBlock).click();
+    shortW.waitUntilVisible(By.xpath(LOGOUT_BUTTON_XPATH)).click();
     return new LoginPage(driver);
   }
   public NewEmailPage writeNewMail(){
-    waitUntilVisible(writeMailButton).click();
+    shortW.waitUntilVisible(writeMailButton).click();
     return new NewEmailPage(driver);
   }
   public DraftsPage moveToDrafts(){
-    waitUntilVisible(draftsButton).click();
+    shortW.waitUntilVisible(draftsButton).click();
     return new DraftsPage(driver);
   }
   public MailListPage moveToSent(){
-    waitUntilVisible(sentButton).click();
+    shortW.waitUntilVisible(sentButton).click();
     return new MailListPage(driver);
   }
   public ReceivedPage moveToReceived(){
-    waitUntilVisible(receivedButton).click();
+    shortW.waitUntilVisible(receivedButton).click();
     return new ReceivedPage(driver);
   }
 
   public MailListPage moveToUnread(){
-    waitUntilVisible(unreadButton).click();
+    shortW.waitUntilVisible(unreadButton).click();
     return new MailListPage(driver);
   }
+
+  public MailListPage moveToRemoved(){
+    shortW.waitUntilVisible(removedButton).click();
+    return new MailListPage(driver);
+  }
+
 }

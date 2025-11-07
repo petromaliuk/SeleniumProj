@@ -1,18 +1,18 @@
 package com.example.page;
 
 import com.example.model.Mail;
+import com.example.page.Basic.MainPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class NewEmailPage extends MainPage{
+public class NewEmailPage extends MainPage {
 
-  private final String FRAME_LOCATOR = "iframe[id^='mce_'][id$='_ifr']";
-  private final String SEND_TO_LOCATOR = "//main//p[@title]/span";
-  private final String SEND_BUTTON_LOCATOR = "//button[text()='Надіслати']";
+  private final String FRAME_CSS = "iframe[id^='mce_'][id$='_ifr']";
+  private final String SEND_TO_CSS = "span[class*='-a0Ll+ku']";
+  private final String SEND_BUTTON_CSS = "button.c5RN4yNv.RwpIv5iy.ebrCxt3c";
 
   @FindBy(id = "compose-to")
   private WebElement composeTo;
@@ -28,17 +28,17 @@ public class NewEmailPage extends MainPage{
   }
 
   public MainPage send(){
-    waitUntilVisible(By.xpath(SEND_BUTTON_LOCATOR)).click();
+    shortW.waitUntilVisible(By.cssSelector(SEND_BUTTON_CSS)).click();
     return new MainPage(driver);
   }
 
   public Mail getMail(){
-    return new Mail(waitUntilVisible(By.xpath(SEND_TO_LOCATOR)).getText(),
+    return new Mail(shortW.waitUntilVisible(By.cssSelector(SEND_TO_CSS)).getText(),
         composeSubject.getAttribute("value"), getBody());
   }
 
   public NewEmailPage enterMailData(Mail mail){
-    waitUntilVisible(composeTo).sendKeys(mail.getComposeTo());
+    shortW.waitUntilVisible(composeTo).sendKeys(mail.getComposeTo());
     composeTo.sendKeys(Keys.TAB);
     composeSubject.sendKeys(mail.getComposeSubject());
     composeSubject.sendKeys(Keys.TAB);
@@ -47,7 +47,7 @@ public class NewEmailPage extends MainPage{
   }
 
   private void updateBody(String append){
-    wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.cssSelector(FRAME_LOCATOR)));
+    longW.waitUntilFrameToBeAvailableAndSwitchToIy(By.cssSelector(FRAME_CSS));
     composeBody.sendKeys(append);
     composeBody.sendKeys(Keys.TAB);
     driver.switchTo().defaultContent();
@@ -55,7 +55,7 @@ public class NewEmailPage extends MainPage{
 
   private String getBody(){
     String res;
-    wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.cssSelector(FRAME_LOCATOR)));
+    longW.waitUntilFrameToBeAvailableAndSwitchToIy(By.cssSelector(FRAME_CSS));;
     res = composeBody.getText();
     driver.switchTo().defaultContent();
     return res;
