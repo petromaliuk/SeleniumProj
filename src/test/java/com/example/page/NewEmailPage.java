@@ -7,12 +7,16 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class NewEmailPage extends MainPage {
 
   private final String FRAME_CSS = "iframe[id^='mce_'][id$='_ifr']";
   private final String SEND_TO_CSS = "span[class*='-a0Ll+ku']";
   private final String SEND_BUTTON_CSS = "button.c5RN4yNv.RwpIv5iy.ebrCxt3c";
+
+    private static final Logger log = LoggerFactory.getLogger(LoginPage.class);
 
   @FindBy(id = "compose-to")
   private WebElement composeTo;
@@ -29,6 +33,7 @@ public class NewEmailPage extends MainPage {
 
   public MainPage send(){
     shortW.waitUntilVisible(By.cssSelector(SEND_BUTTON_CSS)).click();
+    log.info("Mail sent");
     return new MainPage(driver);
   }
 
