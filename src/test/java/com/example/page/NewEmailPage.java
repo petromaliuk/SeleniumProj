@@ -33,7 +33,7 @@ public class NewEmailPage extends MainPage {
 
   public MainPage send(){
     shortW.waitUntilVisible(By.cssSelector(SEND_BUTTON_CSS)).click();
-    log.info("Mail sent");
+    log.info("Mail sent.");
     return new MainPage(driver);
   }
 
