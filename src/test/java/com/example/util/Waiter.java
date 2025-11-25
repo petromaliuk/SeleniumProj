@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class Waiter {
   private static final int SHORT_WAIT_SECONDS = 2;
@@ -18,7 +19,7 @@ public class Waiter {
 
   private Waiter(FluentWait<WebDriver> wait){ this.wait = wait; }
 
-  public static Waiter getShortWaiter(WebDriver driver){
+  public static Waiter getDefaultWaiter(WebDriver driver){
     return new Waiter(new WebDriverWait(driver, Duration.ofSeconds(SHORT_WAIT_SECONDS)));
   }
 
@@ -32,7 +33,18 @@ public class Waiter {
 
   public WebElement waitUntilClickable(By by){ return wait.until(ExpectedConditions.elementToBeClickable(by)); }
 
+  public WebElement waitUntilClickable(WebElement element){
+    return wait.until(ExpectedConditions.elementToBeClickable(element));
+  }
+
   public WebElement waitUntilVisible(By by){return wait.until(ExpectedConditions.visibilityOfElementLocated(by));}
+
+  public List<WebElement> waitUntilVisibleElements(By by, int numOfElements){
+    return wait.until(driver -> {
+      List<WebElement> elements = driver.findElements(by);
+      return elements.size() >= numOfElements ? elements : null;
+    });
+  }
 
   public WebElement waitUntilVisible(WebElement e){return wait.until(ExpectedConditions.visibilityOf(e));}
 

@@ -1,43 +1,25 @@
 package com.example.driver;
 
 import com.example.service.PropReader;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DriverSingleton {
 
+  private static final Logger log = LoggerFactory.getLogger(DriverSingleton.class);
   private static WebDriver driver;
 
-
-  private DriverSingleton(){}
-
-  public static WebDriver getDriver(){
-    if (driver == null){
-      switch (PropReader.getTestData("browser")){
-        case "firefox": {
-          WebDriverManager.firefoxdriver().setup();
-          driver = new FirefoxDriver();
-          break;
-        }
-        case "edge": {
-          WebDriverManager.edgedriver().setup();
-          driver = new EdgeDriver();
-          break;
-        }
-        default: {
-          WebDriverManager.chromedriver().setup();
-          driver = new ChromeDriver();
-        }
-      }
+  public static WebDriver getDriver() {
+    if (driver == null) {
+      driver = DriverFactory.create(PropReader.getTestData("browser"));
       driver.manage().window().maximize();
+      log.debug("Driver has been created");
     }
     return driver;
   }
 
-  public static void closeDriver(){
+  public static void closeDriver() {
     driver.quit();
     driver = null;
   }

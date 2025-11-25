@@ -1,5 +1,6 @@
 package com.example.page;
 
+import com.example.component.Button;
 import com.example.model.User;
 import com.example.page.Basic.AbstractPage;
 import com.example.page.Basic.MainPage;
@@ -7,8 +8,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LoginPage extends AbstractPage {
+
+  private static final Logger log = LoggerFactory.getLogger(LoginPage.class);
 
   private final String PAGE_URL = "https://mail.ukr.net/";
 
@@ -20,6 +25,7 @@ public class LoginPage extends AbstractPage {
 
   @FindBy(xpath = "//button[text()='Продовжити']")
   private WebElement buttonSubmit;
+
 
   public LoginPage(WebDriver driver) {
     super(driver);
@@ -35,7 +41,8 @@ public class LoginPage extends AbstractPage {
   public MainPage login(User user) {
     inputLogin.sendKeys(user.getUsername());
     inputPassword.sendKeys(user.getPassword());
-    buttonSubmit.click();
+    new Button(buttonSubmit, driver).click();
+    log.info("Login related actions done");
     return new MainPage(driver);
   }
 }
