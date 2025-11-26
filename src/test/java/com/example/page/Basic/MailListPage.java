@@ -48,7 +48,6 @@ public class MailListPage extends MainPage {
   }
 
   public Mail getFirstMail(){
-    Util.wait(1000);
     List<WebElement> mail = shortW.waitUntilVisibleElements(By.xpath(FIRST_MAIL_XPATH), 3);
     return new Mail(mail.get(0).getText(), mail.get(1).getText(), mail.get(2).getText());
   }
