@@ -34,15 +34,25 @@ public class LoginPage extends AbstractPage {
 
   @Override
   public LoginPage openPage() {
+      log.info("Login page open");
     driver.navigate().to(PAGE_URL);
     return this;
   }
 
-  public MainPage login(User user) {
-    inputLogin.sendKeys(user.getUsername());
-    inputPassword.sendKeys(user.getPassword());
+  public LoginPage enterUsernameAndPassword(String username, String password){
+      log.info("Login enter username and password");
+      inputLogin.sendKeys(username);
+      inputPassword.sendKeys(password);
+      return this;
+  }
+
+  public MainPage pressSubmitButton() {
+      log.info("Login submit button press");
     new Button(buttonSubmit, driver).click();
-    log.info("Login related actions done");
     return new MainPage(driver);
+  }
+  public MainPage login(User user){
+      enterUsernameAndPassword(user.getUsername(), user.getPassword());
+      return pressSubmitButton();
   }
 }

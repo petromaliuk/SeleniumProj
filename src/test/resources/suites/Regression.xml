@@ -2,6 +2,7 @@
 <suite name="RegressionTests">
     <listeners>
         <listener class-name="com.example.service.TestListener"/>
+        <listener class-name="com.epam.reportportal.testng.ReportPortalTestNGListener"/>
     </listeners>
     <test name="RegressionTests" parallel="classes" thread-count="1">
         <packages>

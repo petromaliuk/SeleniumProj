@@ -1,23 +1,15 @@
 <configuration>
 
-    <!-- ==============
-         1. PATTERN LAYOUT (informative format)
-         ============== -->
     <property name="LOG_PATTERN"
               value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
 
-    <!-- ==============
-         2. CONSOLE APPENDER (default)
-         ============== -->
+
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${LOG_PATTERN}</pattern>
         </encoder>
     </appender>
 
-    <!-- ==============
-         3. FILE APPENDER WITH DAILY ROLLING
-         ============== -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- Base log file -->
         <file>logs/application.log</file>
@@ -35,12 +27,16 @@
         </encoder>
     </appender>
 
-    <!-- ==============
-         4. ROOT LOGGER
-         ============== -->
-    <root level="debug">
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
-    </root>
+    <appender name="RP" class="com.epam.reportportal.logback.appender.ReportPortalAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
 
-</configuration>
+        <root level="debug">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="RP"/>
+           </root>
+
+       </configuration>

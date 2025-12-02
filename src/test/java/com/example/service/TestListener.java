@@ -20,4 +20,5 @@ public class TestListener implements ITestListener {
 
     System.out.println("📸 Screenshot captured for failed test: " + testName);
   }
+
 }

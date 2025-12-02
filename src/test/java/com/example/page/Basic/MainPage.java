@@ -9,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MainPage extends AbstractPage {
 
@@ -35,6 +37,8 @@ public class MainPage extends AbstractPage {
   @FindBy(xpath = "//a[@title='Видалені']")
   private WebElement removedButton;
 
+    private static final Logger log = LoggerFactory.getLogger(MainPage.class);
+
   public MainPage(WebDriver driver) {
     super(driver);
     PageFactory.initElements(this.driver, this);
@@ -50,6 +54,7 @@ public class MainPage extends AbstractPage {
   }
 
   public LoginPage logout(){
+      log.debug("Click to ");
     shortW.waitUntilVisible(credentialBlock).click();
     shortW.waitUntilVisible(By.xpath(LOGOUT_BUTTON_XPATH)).click();
     return new LoginPage(driver);

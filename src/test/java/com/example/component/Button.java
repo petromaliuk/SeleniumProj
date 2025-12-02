@@ -23,6 +23,6 @@ public class Button implements WebElement {
   public void click(Waiter waiter) {
     waiter.waitUntilClickable(element);
     element.click();
-    log.info("Button clicked:" + element);
+    log.debug("Button clicked: {}", element);
   }
 }

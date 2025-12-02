@@ -32,17 +32,20 @@ public class NewEmailPage extends MainPage {
   }
 
   public MainPage send(){
+      log.info("Mail send");
     shortW.waitUntilVisible(By.cssSelector(SEND_BUTTON_CSS)).click();
-    log.info("Mail sent.");
     return new MainPage(driver);
   }
 
   public Mail getMail(){
-    return new Mail(shortW.waitUntilVisible(By.cssSelector(SEND_TO_CSS)).getText(),
-        composeSubject.getAttribute("value"), getBody());
+      Mail mail = new Mail(shortW.waitUntilVisible(By.cssSelector(SEND_TO_CSS)).getText(),
+              composeSubject.getAttribute("value"), getBody());
+      log.info("Read mail from fields: {}", mail);
+    return mail;
   }
 
   public NewEmailPage enterMailData(Mail mail){
+      log.info("Enter mail data: {}", mail);
     shortW.waitUntilVisible(composeTo).sendKeys(mail.getComposeTo());
     composeTo.sendKeys(Keys.TAB);
     composeSubject.sendKeys(mail.getComposeSubject());
